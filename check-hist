@@ -1,0 +1,47 @@
+#!/bin/sh
+
+compare () {
+  ref="$1"
+  head="$2"
+  rev="$(git rev-parse "$ref^{commit}")"
+  base="$(git merge-base "$ref" "$head")"
+  printf "%s:\n" "$ref"
+  printf "  %s\n" "$rev"
+  printf "merge-base %s:\n" "$head"
+  printf "  %s\n" "$base"
+  if [ "$rev" == "$base" ]; then
+    printf "\e[32mGOOD!\e[0m\n"
+  else
+    printf "\e[31mBAD!\e[0m\n"
+  fi
+  printf "\n"
+}
+
+
+for ref in \
+  GitLive-maint-5.004 \
+  perl-5.004_01 \
+  perl-5.004_02 \
+  perl-5.004_03 \
+  perl-5.004_04 \
+  perl-5.004_05 \
+  timinator \
+  timinatorII \
+  ;
+do
+  compare "$ref" "maint-5.004"
+done
+
+for ref in \
+  GitLive-blead \
+  perl-5.7.3 \
+  perl-5.9.0 \
+  perl-5.9.1 \
+  perl-5.9.2 \
+  perl-5.9.3 \
+  perl-5.9.4 \
+  perl-5.9.5 \
+  ;
+do
+  compare "$ref" "blead"
+done

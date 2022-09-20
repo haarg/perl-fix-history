@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$p5_mirror" ]; then
+  p5_mirror="https://github.com/Perl/perl5.git"
+fi
+git clone "$p5_mirror"
+
+cd perl5
+
+git replace 7d30fe4839ae753ca83085806b7e44c13cd4b85e ae90ce57013cdde0bb10fdc1a9173ca8f0973d6c
+git replace 4a00836e1df4aa33331a91e5c70afb0e81f4ac11 f9a26a8bc278e3c63fbdba45d0b02bb258cdbc4d
+git replace d9a464030e8e08486d87711a575d5a5696634a73 c86e9150ad7a16fbff9ad6e01b9c8c86649cde1b
+git replace 36806fa22a1cdba78b67e4ac73e00a1e2116c8a6 c6601927a584c0fd18d5a6bb3b4c95cff46a2c6a
+git replace d29d8e65e2df59accc13187fed511ddf49fb8053 426affbfcdc1a44b91a25ac2862d4b8ea7a209fd
+git replace 19e345f737f2ce1fb00aa117c7469e01a20da559 3d036c2b4a16bfabb30adc0a1c9a65f0f7823869
+git replace bb4c4dc4f8b582cd197e90c49777d0c8c019a470 d02b64de5f9ba499420a267adddd8f43af075dad
+
+git branch maint-5.004 origin/maint-5.004
+
+refs=(
+  "refs/tags/GitLive-maint-5.004"
+  "refs/tags/GitLive-blead"
+  "refs/tags/perl-5.004_05"
+  "refs/tags/perl-5.7.3"
+  "refs/tags/perl-5.9.0"
+  "refs/tags/perl-5.9.1"
+  "refs/tags/perl-5.9.2"
+  "refs/tags/perl-5.9.3"
+  "refs/tags/perl-5.9.4"
+  "refs/tags/perl-5.9.5"
+  "refs/tags/timinator"
+  "refs/tags/timinatorII"
+  "refs/heads/maint-5.004"
+)
+
+for ref in "${refs[@]}"; do
+  git tag "bad-history/${ref/*\//}" "$ref"
+done
+
+git filter-repo --replace-refs delete-no-add --refs "${refs[@]}" --force
