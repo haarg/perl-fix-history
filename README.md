@@ -54,8 +54,17 @@ the appropriate branches.
 
 ## Pushing the fixes
 
+Pushing these fixes to the main git repository can be done using one of the
+following processes:
+
+### Using the scripts
+
 ```
+git clone https://github.com/haarg/perl-fix-history.git
+cd perl-fix-history
+./fix-p5
 cd perl5
+../check-hist
 git push -f origin \
   GitLive-maint-5.004 \
   GitLive-blead \
@@ -72,4 +81,23 @@ git push -f origin \
   maint-5.004
 ```
 
-This repository also contains the fixed tags and branch.
+### Using the fixed content in this repository
+
+```
+git clone https://github.com/haarg/perl-fix-history.git
+cd perl-fix-history
+git push -f git@github.com:Perl/perl5.git \
+  GitLive-maint-5.004 \
+  GitLive-blead \
+  perl-5.004_05 \
+  perl-5.7.3 \
+  perl-5.9.0 \
+  perl-5.9.1 \
+  perl-5.9.2 \
+  perl-5.9.3 \
+  perl-5.9.4 \
+  perl-5.9.5 \
+  timinator \
+  timinatorII \
+  maint-5.004
+```
