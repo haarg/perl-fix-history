@@ -60,7 +60,7 @@ following processes:
 ### Using the scripts
 
 ```
-git clone https://github.com/haarg/perl-fix-history.git
+git clone https://github.com/haarg/perl-fix-history.git --single-branch
 cd perl-fix-history
 ./fix-p5
 cd perl5
@@ -99,5 +99,5 @@ git push -f git@github.com:Perl/perl5.git \
   perl-5.9.5 \
   timinator \
   timinatorII \
-  maint-5.004
+  refs/remotes/origin/maint-5.004:refs/heads/maint-5.004
 ```
